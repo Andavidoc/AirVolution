@@ -22,7 +22,6 @@ const columns = [
     }
 ];
 
-
 export default class ReservaCompleta extends LightningElement {
     columns = columns;
     @wire(obtenerVuelos,({precio: '$nombreLista'}))
