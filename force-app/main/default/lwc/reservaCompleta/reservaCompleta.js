@@ -43,7 +43,6 @@ export default class ReservaCompleta extends LightningElement {
     idVuelo;
     pasajero;
 
-
     get identidad() {
         return [
             { label: 'Tarjeta de Identidad', value: 'Tarjeta de Identidad' },
