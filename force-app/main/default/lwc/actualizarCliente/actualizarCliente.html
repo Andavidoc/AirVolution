@@ -1,0 +1,20 @@
+<template>
+<lightning-layout>
+    <lightning-card title="Crear cliente" icon-name="standard:contact">
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-input label="Nombre" onchange={handleContactChange} name="firstName" ></lightning-input>
+            <lightning-input label="Apellido" onchange={handleContactChange} name="lastName"> </lightning-input>
+            <lightning-input label="Tipo de identificación" onchange={handleContactChange} name="tipoDeIdentificacion"> </lightning-input>
+            <lightning-input label="Número de identificación" onchange={handleContactChange} name="numeroDeIdentificacion"> </lightning-input>
+            <lightning-input label="Número de pasaporte" onchange={handleContactChange} name="numeroDePasaporte"> </lightning-input>
+            <lightning-input type="date" label="Fecha de nacimiento" onchange={handleContactChange} name="fechaDeNacimiento"> </lightning-input>
+            <lightning-input type="email" label="Correo electrónico" onchange={handleContactChange} name="correoElectronico"> </lightning-input>
+            <lightning-input label="Nacionalidad" onchange={handleContactChange} name="nacionalidad"> </lightning-input>
+            <lightning-button label="Crear cliente" variant="brand" onclick={createContact}  ></lightning-button>
+        </div>
+
+    </lightning-card>
+
+
+</lightning-layout>    
+</template>
