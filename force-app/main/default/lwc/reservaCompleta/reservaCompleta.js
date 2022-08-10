@@ -101,7 +101,7 @@ export default class ReservaCompleta extends LightningElement {
                 this.crearReserevaModal = false;
                 this.crearCliente = true;
             } else{
-                this.idContact = this.contacto.Id;
+                this.idContact = this.contacto.Id; 
                 console.log(this.idContact);
                 this.nuevoTiquete();
             } 

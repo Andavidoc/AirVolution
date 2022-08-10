@@ -66,9 +66,25 @@ public without sharing class TiqueteTriggerHandler implements TriggerHandler {
             }
         }
     }
+
+    public static void asignarEquipajeNegocios(List<OpportunityLineItem> tiquetes){
+        Pricebook2 listaDePrecios = [SELECT ID FROM Pricebook2 WHERE Name = 'Tiquetes Negocios' LIMIT 1];
+        set<Id> idVuelos = new set<Id>();
+        for (OpportunityLineItem tiq : tiquetes) {
+            idVuelos.add(tiq.OpportunityId);            
+        }
+        List<Opportunity> reservas = [SELECT Id FROM Opportunity WHERE Id IN : idVuelos AND Pricebook2Id =: listaDePrecios.Id];
+        for (OpportunityLineItem enLis: tiquetes) {
+            for (Opportunity tiq : reservas) {
+                if (enLis.OpportunityId == tiq.Id){
+                    enLis.Equipaje_permitido__c = 'Maleta de cabina;Maleta de bodega;Personal';
+                }
+            }
+        }
+    }
    
 
-public static void asignarEquipajeNegocios(List<OpportunityLineItem> tiquetes){
+/*public static void asignarEquipajeNegocios(List<OpportunityLineItem> tiquetes){
     set <Id> idVuelos = new set<Id>();
     for (OpportunityLineItem tiq : tiquetes) {
         idVuelos.add(tiq.product2id);            
@@ -82,6 +98,6 @@ public static void asignarEquipajeNegocios(List<OpportunityLineItem> tiquetes){
             }
         }
     }
-}
+}*/
 
 }
