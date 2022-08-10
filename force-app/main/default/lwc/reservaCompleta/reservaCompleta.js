@@ -21,7 +21,6 @@ const columns = [
         typeAttributes: { rowActions: actions}
     }
 ];
-
 export default class ReservaCompleta extends LightningElement {
     columns = columns;
     @wire(obtenerVuelos,({precio: '$nombreLista'}))
