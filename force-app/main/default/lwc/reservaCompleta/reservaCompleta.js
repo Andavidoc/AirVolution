@@ -121,6 +121,7 @@ export default class ReservaCompleta extends LightningElement {
         crearTiquete({reserva : this.idReserva, vuelo : this.idVuelo, pasajero : this.idContact})
         .then((result) => {
             console.log(result);
+            this.ensayo = true;
         })
         .catch((error) => {
             console.log(error);
