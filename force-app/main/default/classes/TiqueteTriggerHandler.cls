@@ -84,20 +84,4 @@ public without sharing class TiqueteTriggerHandler implements TriggerHandler {
     }
    
 
-/*public static void asignarEquipajeNegocios(List<OpportunityLineItem> tiquetes){
-    set <Id> idVuelos = new set<Id>();
-    for (OpportunityLineItem tiq : tiquetes) {
-        idVuelos.add(tiq.product2id);            
-    }
-    String idNegocios = [SELECT id FROM Pricebook2 WHERE Name = 'Tiquetes Negocios' LIMIT 1].Id;
-    List<PricebookEntry> listEntry = [SELECT Id, Pricebook2Id, Product2Id FROM PricebookEntry WHERE Pricebook2Id =: IdNegocios AND Product2Id IN : idVuelos];
-    for (PricebookEntry enLis: listEntry) {
-        for (OpportunityLineItem tiq : tiquetes) {
-            if (tiq.product2id == enLis.product2id){
-                tiq.Equipaje_permitido__c = 'Maleta de cabina;Maleta de bodega';
-            }
-        }
-    }
-}*/
-
 }
