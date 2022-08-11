@@ -54,7 +54,6 @@ public with sharing class ClienteTest {
         System.assert(test.contacto == null);
         System.assert(test.oportunidad == null);
     }
-    
 
     @isTest
     static void obtieneVuelos(){
@@ -64,6 +63,7 @@ public with sharing class ClienteTest {
         List<Cliente.vueloWrapper> vuelos = Cliente.obtenerVuelos(idlistaPrecio);
 
         System.assertEquals(1, vuelos.size());
+
     }
 
 }

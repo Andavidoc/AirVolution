@@ -83,6 +83,7 @@ export default class ReservaCompleta extends LightningElement {
             console.log(result);
             this.crearReserevaModal = false;
             this.pasajero = true;
+            this.showToastTiquete();
         })
         .catch((error) => {
             console.log(error);
@@ -104,6 +105,7 @@ export default class ReservaCompleta extends LightningElement {
                 this.idContact = this.contacto.Id; 
                 console.log(this.idContact);
                 this.nuevoTiquete();
+                this.showToastTiquete();
             } 
         })
         .catch((error) => {
@@ -142,6 +144,15 @@ export default class ReservaCompleta extends LightningElement {
         const evento = new ShowToastEvent({
             title: 'Reserva Exitosa' ,
             message:  'Se ha creado la reserva con éxito',
+            variant: 'success',
+        });
+        this.dispatchEvent(evento);
+    }
+
+    showToastTiquete(event){
+        const evento = new ShowToastEvent({
+            title: 'Tiquete Exitosa' ,
+            message:  'Se ha creado el tiquete con éxito para: ' + this.contacto.Name,
             variant: 'success',
         });
         this.dispatchEvent(evento);

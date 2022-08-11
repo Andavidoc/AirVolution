@@ -39,8 +39,8 @@ public without sharing class TiqueteTriggerHandler implements TriggerHandler {
 
 
     public static void sobreventa(List<OpportunityLineItem> tiquetes){
-
-        set <Id> idTiquetes = new set<Id>();
+        try {
+            set <Id> idTiquetes = new set<Id>();
         for (opportunityLineItem Tiquete : tiquetes)
         {
             idTiquetes.add(Tiquete.Product2Id);
@@ -56,7 +56,6 @@ public without sharing class TiqueteTriggerHandler implements TriggerHandler {
             if ((pasajerosTotales*1.1)<(integer)ar.get('expr0')) {
                 vuelos.add(new product2(id=(string)ar.get('Product2Id')));
             }
-            
         }
         for(opportunityLineItem a: tiquetes){
             for(product2 p: vuelos){
@@ -65,6 +64,10 @@ public without sharing class TiqueteTriggerHandler implements TriggerHandler {
                 }
             }
         }
+        } catch (Exception e) {
+            system.debug(e.getMessage());
+        }
+        
     }
 
     public static void asignarEquipajeNegocios(List<OpportunityLineItem> tiquetes){
