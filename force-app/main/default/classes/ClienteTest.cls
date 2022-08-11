@@ -54,6 +54,7 @@ public with sharing class ClienteTest {
         System.assert(test.contacto == null);
         System.assert(test.oportunidad == null);
     }
+    
 
     @isTest
     static void obtieneVuelos(){
