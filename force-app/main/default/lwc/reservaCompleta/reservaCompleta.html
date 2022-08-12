@@ -146,8 +146,15 @@
                 </header>
                 <!-- Modal/Popup Box LWC body starts here -->
                 <template if:false={agregarP}>
-                    <lightning-card>
-                        <lightning-button label='Agregar Pasajeros' onclick={addpasajeros}></lightning-button>
+                    <lightning-card >
+                        <lightning-layout multiple-rows>
+                            <lightning-layout-item size="6" >
+                                <lightning-button label='Agregar Pasajeros' onclick={addpasajeros}></lightning-button>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" >
+                            <lightning-button label="Finalizar" variant="brand" onclick={cerrarPasajero}></lightning-button>
+                            </lightning-layout-item>
+                        </lightning-layout>
                     </lightning-card>
                 </template>
                 <template if:true={agregarP}>
