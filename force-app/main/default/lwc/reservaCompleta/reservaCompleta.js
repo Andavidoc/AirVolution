@@ -197,7 +197,7 @@ export default class ReservaCompleta extends LightningElement {
     }
 
 
-
+    // Se generan los metodos para cerrar y abrir los modales
     createOpportunity(event){
         this.idReserva = event.detail
     }
