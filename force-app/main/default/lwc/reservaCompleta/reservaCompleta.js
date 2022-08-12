@@ -1,3 +1,4 @@
+/* Un componente que le permite crear una reserva y un boleto. */
 import { LightningElement, api, wire} from 'lwc';
 import clienteReserva from '@salesforce/apex/Cliente.clienteReserva';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
@@ -42,6 +43,7 @@ export default class ReservaCompleta extends LightningElement {
     idReserva;
     idVuelo;
     pasajero;
+    agregarP;
 
     get identidad() {
         return [
@@ -90,7 +92,7 @@ export default class ReservaCompleta extends LightningElement {
         });
         
     }
-
+    // Funcion utilizada para crear pasajeros adicionales al titular de la reserva
     agregarPasajeros(event){
         clienteReserva({documento: this.documento, tipoDoc: this.tIdent})
         .then((result) => {
@@ -102,7 +104,7 @@ export default class ReservaCompleta extends LightningElement {
                 this.crearReserevaModal = false;
                 this.crearCliente = true;
             } else{
-                this.idContact = this.contacto.Id; 
+                this.idContact = this.contacto.Id;
                 console.log(this.idContact);
                 this.nuevoTiquete();
                 this.showToastTiquete();
@@ -113,13 +115,13 @@ export default class ReservaCompleta extends LightningElement {
             this.contacto = undefined;
             this.reserva = undefined;
         })
-        //
     }
 
     
 
     nuevoTiquete(){
         console.log(this.idContact);
+        /* Creando un boleto. */
         crearTiquete({reserva : this.idReserva, vuelo : this.idVuelo, pasajero : this.idContact})
         .then((result) => {
             console.log(result);
@@ -221,10 +223,13 @@ export default class ReservaCompleta extends LightningElement {
         this.pasajero = false;
     }
 
-    
     abrirVuelos(){
         this.ensayo = false;
         this.modalvuelos = false;
+    }
+
+    addpasajeros(){
+        this.agregarP = true;
     }
 
 }

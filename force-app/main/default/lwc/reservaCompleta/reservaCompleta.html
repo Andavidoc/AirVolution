@@ -145,7 +145,12 @@
                     <h2 id="modal-heading-04" class="slds-text-heading_medium slds-hyphenate">Agregar Pasajeros</h2>
                 </header>
                 <!-- Modal/Popup Box LWC body starts here -->
-                
+                <template if:false={agregarP}>
+                    <lightning-card>
+                        <lightning-button label='Agregar Pasajeros' onclick={addpasajeros}></lightning-button>
+                    </lightning-card>
+                </template>
+                <template if:true={agregarP}>
                     <lightning-card title="Agregar Pasajero" icon-name="standard:contact">
                         <lightning-combobox
                             name="progress"
@@ -159,7 +164,7 @@
                             <lightning-button label="Agregar" variant="brand" onclick={agregarPasajeros}></lightning-button>
                         </div>
                     </lightning-card>
-                
+                </template>
                 <!-- Modal/Popup Box LWC footer starts here -->
                 <footer class="slds-modal__footer">
                     <button class="slds-button slds-button_brand" onclick={cerrarPasajero} title="Aceptar">Aceptar</button>
