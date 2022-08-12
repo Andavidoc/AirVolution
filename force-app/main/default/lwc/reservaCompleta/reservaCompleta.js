@@ -10,6 +10,7 @@ const actions = [
     { label: 'seleccionar', name: 'seleccionar'}
 ];
 
+/* Definición de las columnas de la tabla. */
 const columns = [
     { label: 'Vuelo', fieldName: 'nombreVuelo' },
     { label: 'Aeropuerto de Partida', fieldName: 'aeroPartida', type: 'text' },
@@ -27,6 +28,7 @@ export default class ReservaCompleta extends LightningElement {
     @wire(obtenerVuelos,({precio: '$nombreLista'}))
     vuelos;
 
+    /* Una declaración de variable. */
     lista;
     documento;
     contacto = undefined;
@@ -61,6 +63,7 @@ export default class ReservaCompleta extends LightningElement {
     }
 
     listaPrecios(event) {
+        /* Llamar al método de Apex `listaPrecios` y pasar el valor de `this.lista` como parámetro. */
         this.lista = event.detail.value;
         console.log(this.lista);
         listaPrecios({entradaDeLista: this.lista})
