@@ -142,23 +142,27 @@
                             size="small" ></lightning-icon>
                         <span class="slds-assistive-text">Close</span>
                     </button>
-                    <h2 id="modal-heading-04" class="slds-text-heading_medium slds-hyphenate">Agregar Pasajeros</h2>
+                    <h2 id="modal-heading-04" class="slds-text-heading_medium slds-hyphenate">¿Deseas agregar más Pasajeros?</h2>
                 </header>
                 <!-- Modal/Popup Box LWC body starts here -->
                 <template if:false={agregarP}>
                     <lightning-card >
                         <lightning-layout multiple-rows>
-                            <lightning-layout-item size="6" >
-                                <lightning-button label='Agregar Pasajeros' onclick={addpasajeros}></lightning-button>
+                            <lightning-layout-item  size="7" class="right-align">
+                                <div class=”slds-align_absolute-center”>
+                                    <lightning-button label='Agregar Pasajeros'  onclick={addpasajeros}></lightning-button>
+                                </div>
                             </lightning-layout-item>
-                            <lightning-layout-item size="6" >
-                            <lightning-button label="Finalizar" variant="brand" onclick={cerrarPasajero}></lightning-button>
+                            <lightning-layout-item size="5" class="left-align" >
+                                <div class=”slds-align_absolute-center”>
+                            <lightning-button label="Finalizar"  variant="brand" onclick={cerrarPasajero}></lightning-button>
+                                </div>
                             </lightning-layout-item>
                         </lightning-layout>
                     </lightning-card>
                 </template>
                 <template if:true={agregarP}>
-                    <lightning-card title="Agregar Pasajero" icon-name="standard:contact">
+                    <lightning-card title="Agregar Pasajero" icon-name="standard:contact" class="centrada">
                         <lightning-combobox
                             name="progress"
                             label="Tipo de Identidad"
@@ -166,16 +170,22 @@
                             placeholder=""
                             options={identidad}
                             onchange={idChange} ></lightning-combobox>
-                        <lightning-input  onchange={docChange} label="Número de documento" type="text"></lightning-input>
-                        <div class="slds-p-around_medium lgc-bg">
-                            <lightning-button label="Agregar" variant="brand" onclick={agregarPasajeros}></lightning-button>
-                        </div>
+                        <lightning-input  onchange={docChange} label="Número de documento" type="text" value={documento}></lightning-input>
+                        <lightning-layout multiple-rows>
+                            <lightning-layout-item  size="6" class="right-align">
+                                <div class=”slds-align_absolute-center”>
+                                    <lightning-button label="Agregar" variant="brand" onclick={agregarPasajeros}></lightning-button>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" class="left-align" >
+                                <div class=”slds-align_absolute-center”>
+                            <lightning-button label="Finalizar"  variant="brand" onclick={cerrarPasajero}></lightning-button>
+                                </div>
+                            </lightning-layout-item>
+                        </lightning-layout>
                     </lightning-card>
                 </template>
                 <!-- Modal/Popup Box LWC footer starts here -->
-                <footer class="slds-modal__footer">
-                    <button class="slds-button slds-button_brand" onclick={cerrarPasajero} title="Aceptar">Aceptar</button>
-                </footer>
             </div>
         </section>
         <div class="slds-backdrop slds-backdrop_open"></div>

@@ -86,7 +86,7 @@ export default class ReservaCompleta extends LightningElement {
         crearTiquete({reserva : this.idReserva, vuelo : this.idVuelo, pasajero : this.idContact})
         .then((result) => {
             console.log(result);
-            this.crearReserevaModal = false;
+            this.cerrarModalCreaReserva();
             this.pasajero = true;
             this.showToastTiquete();
         })
@@ -111,6 +111,7 @@ export default class ReservaCompleta extends LightningElement {
                 console.log(this.idContact);
                 this.nuevoTiquete();
                 this.showToastTiquete();
+                this.documento = "";
             } 
         })
         .catch((error) => {
@@ -236,3 +237,4 @@ export default class ReservaCompleta extends LightningElement {
     }
 
 }
+
