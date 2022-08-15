@@ -1,5 +1,5 @@
 public with sharing class ReservaBatch  implements Database.Batchable<sObject> {
-    Datetime modificacion = Datetime.now().addMinutes(1);
+    Datetime modificacion = Datetime.now().addMinutes(-1);
     public Database.QueryLocator start(Database.BatchableContext BC){
         return Database.getQueryLocator('SELECT Id, StageName, LastModifiedDate  FROM Opportunity');
     }

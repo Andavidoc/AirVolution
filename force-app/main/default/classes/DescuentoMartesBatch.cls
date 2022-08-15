@@ -10,6 +10,19 @@ public with sharing class DescuentoMartesBatch implements Database.Batchable<sOb
             p.Martes_de_descuento__c = true;
         }
         update prices;
+
+        Profile ventas = [SELECT Id, Name From PRofile Where Name = 'Grupo de ventas' LIMIT 1];
+
+        List<User> usuarios = [SELECT id FROM User WHere ProfileId =: ventas.id AND isActive = true ];
+        List<Event> eventos = new List<Event>();
+        if(usuarios.size() > 0){
+            for (User u : usuarios) {
+                eventos.add(new Event(OwnerId = u.Id, StartDateTime = Datetime.now(), EndDateTime = Datetime.now().addHours(15),
+                            Subject = 'Martes de descuento '));
+            }
+            insert eventos;
+        }
+
     }
 
     public void finish(Database.BatchableContext BC){
