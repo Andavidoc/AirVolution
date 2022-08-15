@@ -10,6 +10,36 @@ public with sharing class ReverDescMartesBatch implements Database.Batchable<sOb
             p.Martes_de_descuento__c = false;
         }
         update prices;
+
+        Profile ventas = [SELECT Id, Name From PRofile Where Name = 'Grupo de ventas' LIMIT 1];
+
+        List<User> usuarios = [SELECT id FROM User WHere ProfileId =: ventas.id AND isActive = true ];
+        Set<String> listaUsuarios = new Set<String>();
+        if(usuarios.size() > 0){
+            for (User u : usuarios) {
+                listaUsuarios.add(u.Id);
+            }
+            CustomNotificationType notificationType = 
+            [SELECT Id, DeveloperName 
+             FROM CustomNotificationType 
+             WHERE DeveloperName='cierre_descuento'];
+        
+            // Create a new custom notification
+            Messaging.CustomNotification notification = new Messaging.CustomNotification();
+
+            // Set the contents for the notification
+            notification.setTitle('Cierre de descuento');
+            notification.setBody('El horario de descuento ha finalizado');
+
+            // Set the notification type and target
+            notification.setNotificationTypeId(notificationType.Id);
+            notification.setTargetId('000000000000000AAA');
+        
+            // Actually send the notification
+        
+            notification.send(listaUsuarios);
+        
+        }
     }
 
     public void finish(Database.BatchableContext BC){
