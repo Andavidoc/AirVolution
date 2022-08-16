@@ -9,10 +9,12 @@ public without sharing class ReservaTriggerHandler implements TriggerHandler {
     public void beforeInsert(List<Opportunity> newOpportunitys) {
         cambiarNombreDeReserva(newOpportunitys);
         reservaPagada(newOpportunitys);
+        actualizarFechaPago(newOpportunitys);
     }
 
     public void beforeUpdate(List<Opportunity> oldOpportunitys, List<Opportunity> newOpportunitys, Map<ID, SObject> oldOpportunityMap, Map<ID, SObject> newOpportunityMap) {
         reservaPagada(newOpportunitys);
+        actualizarFechaPago(newOpportunitys);
     }
     public void beforeDelete(List<Opportunity> oldOpportunitys, Map<ID, SObject> oldOpportunityMap) {
         // helper.doTask5();
@@ -55,6 +57,30 @@ public without sharing class ReservaTriggerHandler implements TriggerHandler {
                 String NumeroDeReserva = '-'+EncodingUtil.convertToHex(Crypto.generateAesKey(128)).substring(0, 6);
                 opp.Name = (Titulares.get(opp.Titular_de_reserva__c).name).replace(' ','') + NumeroDeReserva;
             }
+        }
+    }
+
+    public static void actualizarFechaPago(List<Opportunity> oportunidades){
+        for (opportunity r : oportunidades) {
+            if(r.StageName == 'Pagado'){
+                r.Fecha_de_pago__c = Date.today();
+
+                Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+
+                String[] toAddresses = new String[] {'andres.david1@udea.edu.co'};
+                mail.setToAddresses(toAddresses);
+ 
+                mail.setReplyTo('Andavidoc@salesforce.com');
+                mail.setSenderDisplayName('Air-Volution Support');
+                mail.setSubject('Confirmación de Reserva');
+                mail.setPlainTextBody('Señor/a ' + r.Titular_de_reserva__r.LastName + '. Su reserva ' + r.Name +
+                                    ' ha sido paga con éxito por un valor de: ' + r.Valor_total__c);
+
+                mail.setUseSignature(false);
+
+                Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
+            }
+            
         }
     }
 }

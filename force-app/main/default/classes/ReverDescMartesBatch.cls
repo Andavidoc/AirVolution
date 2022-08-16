@@ -33,7 +33,7 @@ public with sharing class ReverDescMartesBatch implements Database.Batchable<sOb
 
             // Set the notification type and target
             notification.setNotificationTypeId(notificationType.Id);
-            notification.setTargetId(prices[0].Id);
+            notification.setTargetId(prices[0].Id); 
         
             // Actually send the notification
         

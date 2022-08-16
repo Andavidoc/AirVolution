@@ -9,7 +9,7 @@ public with sharing class DescuentoMartesBatch implements Database.Batchable<sOb
             p.UnitPrice = precio * 0.65;
             p.Martes_de_descuento__c = true;
         }
-        update prices;
+        update prices; 
 
         Profile ventas = [SELECT Id, Name From PRofile Where Name = 'Grupo de ventas' LIMIT 1];
 
