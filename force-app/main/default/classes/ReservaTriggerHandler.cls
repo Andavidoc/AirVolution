@@ -24,7 +24,7 @@ public without sharing class ReservaTriggerHandler implements TriggerHandler {
         // helper.doTask2();
         // helper.doTask3();
     }
-    public void afterUpdate(List<Opportunity> oldOpportunitys, List<Account> newOpportunitys, Map<ID, SObject> oldOpportunityMap, Map<ID, SObject> newOpportunityMap) {
+    public void afterUpdate(List<Opportunity> oldOpportunitys, List<Opportunity> newOpportunitys, Map<ID, SObject> oldOpportunityMap, Map<ID, SObject> newOpportunityMap) {
         // helper.doTask4();
         // helper.doTask5();
     }
@@ -61,26 +61,21 @@ public without sharing class ReservaTriggerHandler implements TriggerHandler {
     }
 
     public static void actualizarFechaPago(List<Opportunity> oportunidades){
+        List<String> idContactos = new List<String>();
         for (opportunity r : oportunidades) {
             if(r.StageName == 'Pagado'){
                 r.Fecha_de_pago__c = Date.today();
-
-                Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-
-                String[] toAddresses = new String[] {'andres.david1@udea.edu.co'};
-                mail.setToAddresses(toAddresses);
- 
-                mail.setReplyTo('Andavidoc@salesforce.com');
-                mail.setSenderDisplayName('Air-Volution Support');
-                mail.setSubject('Confirmación de Reserva');
-                mail.setPlainTextBody('Señor/a ' + r.Titular_de_reserva__r.LastName + '. Su reserva ' + r.Name +
-                                    ' ha sido paga con éxito por un valor de: ' + r.Valor_total__c);
-
-                mail.setUseSignature(false);
-
-                Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
+                idContactos.add(r.Titular_de_reserva__c);
             }
-            
+        }
+        if(idContactos.size() > 0 ){
+        EmailTemplate plantillaCorreo = [SELECT Id FROM EmailTemplate WHERE Name = 'Confirmación de reserva' LIMIT 1];
+
+        Messaging.MassEmailMessage correo = new Messaging.MassEmailMessage();
+        correo.setTargetObjectIds(idContactos);
+        correo.setSenderDisplayName('Air-Volution Support');
+        correo.setTemplateId(plantillaCorreo.Id);  
+        Messaging.sendEmail(new Messaging.MassEmailMessage[] {correo});
         }
     }
 }

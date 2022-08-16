@@ -12,19 +12,19 @@ trigger ReservaTrigger on Opportunity (before insert, before update, before dele
         reserva.beforeUpdate(trigger.old, trigger.new, trigger.oldMap, trigger.newMap);
     }
     when BEFORE_DELETE{
-        
+        reserva.beforeDelete(trigger.old, trigger.oldMap);
     }
     when AFTER_INSERT{
-        
+        reserva.afterInsert(trigger.new, trigger.newMap);
     }
     when AFTER_UPDATE{
-        
+        reserva.afterUpdate(trigger.old, trigger.new, trigger.oldMap, trigger.newMap);
     }
-    when AFTER_DELETE{
-        
+    when AFTER_DELETE{  
+        reserva.afterDelete(trigger.old, trigger.oldMap);
     }
     when AFTER_UNDELETE{
-        
+        reserva.afterUndelete(trigger.new, trigger.newMap);
     }
     when else {
         

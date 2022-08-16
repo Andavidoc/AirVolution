@@ -15,8 +15,11 @@ public with sharing class ReservaTriggerHandlerTest {
         insert reserva;
 
         reserva = [SELECT Name FROM Opportunity LIMIT 1] ;
-
+        update reserva;
         System.assert(reserva.Name.contains('RodrigoCastaño'));
+
+        delete reserva;
+        undelete reserva;
     }
 
     @isTest

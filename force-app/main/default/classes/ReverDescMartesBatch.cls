@@ -14,6 +14,7 @@ public with sharing class ReverDescMartesBatch implements Database.Batchable<sOb
         Profile ventas = [SELECT Id, Name From PRofile Where Name = 'Grupo de ventas' LIMIT 1];
 
         List<User> usuarios = [SELECT id FROM User WHere ProfileId =: ventas.id AND isActive = true ];
+        List<Pricebook2> listasDePrecios = [SELECT Id FROM Pricebook2];
         Set<String> listaUsuarios = new Set<String>();
         if(usuarios.size() > 0){
             for (User u : usuarios) {
@@ -33,10 +34,14 @@ public with sharing class ReverDescMartesBatch implements Database.Batchable<sOb
 
             // Set the notification type and target
             notification.setNotificationTypeId(notificationType.Id);
-            notification.setTargetId(prices[0].Id); 
-        
+            notification.setTargetId(listasDePrecios[0].Id); 
+           
             // Actually send the notification
         
+            notification.send(listaUsuarios);
+
+            notification.setTargetId(listasDePrecios[1].Id); 
+            // Actually send the notification
             notification.send(listaUsuarios);
         
         }

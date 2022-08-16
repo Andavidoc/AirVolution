@@ -9,6 +9,7 @@ public without sharing class TiqueteTriggerHandler implements TriggerHandler {
     public void beforeInsert(List<OpportunityLineItem> newOpportunityLineItems) {
         asignarEquipajeNegocios(newOpportunityLineItems);
         sobreventa(newOpportunityLineItems);
+        PasajeroDeReserva(newOpportunityLineItems);
        
     }
     public void beforeUpdate(List<OpportunityLineItem> oldOpportunityLineItems, List<OpportunityLineItem> newOpportunityLineItems, Map<ID, SObject> oldOpportunityLineItemMap, Map<ID, SObject> newOpportunityLineItemMap) {
@@ -82,6 +83,19 @@ public without sharing class TiqueteTriggerHandler implements TriggerHandler {
                 if (enLis.OpportunityId == tiq.Id){
                     enLis.Equipaje_permitido__c = 'Maleta de cabina;Maleta de bodega;Personal';
                 }
+            }
+        }
+    }
+
+    public static void PasajeroDeReserva (List<OpportunityLineItem> tiqueteNew){
+        List <Opportunity> reservas = new List<Opportunity>([Select Id,Titular_de_reserva__c from Opportunity where StageName = 'Pre-Venta']);
+        for(opportunity reserva : reservas){
+            for(opportunityLineItem tiquete : tiqueteNew){
+                if (tiquete.OpportunityId == reserva.Id){
+                    if(tiquete.Pasajero__c == null){
+                        tiquete.Pasajero__c = reserva.Titular_de_reserva__c;
+                    }
+                }       
             }
         }
     }
