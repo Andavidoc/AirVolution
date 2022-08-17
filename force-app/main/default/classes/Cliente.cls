@@ -1,6 +1,6 @@
 public with sharing class Cliente {
 
-    @AuraEnabled(cacheable = true)
+    @AuraEnabled
     public static CtoReserva clienteReserva(string documento, string tipoDoc){
          contact cliente = null;
          Opportunity reserva = null;

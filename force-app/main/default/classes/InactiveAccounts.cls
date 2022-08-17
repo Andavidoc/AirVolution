@@ -8,11 +8,11 @@ public with sharing class InactiveAccounts implements Database.Batchable<sObject
     }
 
     public Database.QueryLocator start(Database.BatchableContext BC){
-        string query = 'SELECT id '+
+        string query = ('SELECT id '+
                         'FROM Account '+
                         'WHERE SLA__c=: SLA '+
                         'AND SLAExpirationDate__c < '+ SLAExpiration +' '+
-                        'AND UpsellOpportunity__c = \'No\'';
+                        'AND UpsellOpportunity__c = \'No\'');
         return Database.getQueryLocator(query);
     }
 

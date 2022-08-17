@@ -1,5 +1,6 @@
 @isTest
-public with sharing class DescuentoMartesTest {
+public with sharing class ReversaDescMartesTest {
+    
     @TestSetup
     static void makeData(){
         List<Contact> lista = new List<Contact>();
@@ -52,24 +53,5 @@ public with sharing class DescuentoMartesTest {
                                         CloseDate = System.today(), StageName = 'Pre-venta', 
                                         Pricebook2Id = turista.Id);
         Insert res;
-    }
-
-    
-    @isTest
-    static void pruebaDescuentoMartes(){
-        
-        
-        Test.startTest();
-        DescuentoMartes prueba = new DescuentoMartes();
-        String sch = '1 0 0 ? * * *';
-        String jobID = System.schedule('DescuentoVeinticuatroSchedulable', sch, prueba);
-        DescuentoMartesBatch descuento = new DescuentoMartesBatch();
-        ID batchprocessid = Database.executeBatch(descuento);
-        Test.stopTest();
-        
-        List<PricebookEntry> entradaConDescuento = [SELECT Id 
-                                FROM PricebookEntry 
-                                WHERE Martes_de_descuento__c = true];
-        System.assertEquals(2, entradaConDescuento.size());
     }
 }
