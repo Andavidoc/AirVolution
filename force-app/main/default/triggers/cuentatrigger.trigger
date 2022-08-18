@@ -13,7 +13,7 @@ switch on trigger.operationType{
         cuenta.beforeUpdate(trigger.old, trigger.new, trigger.oldMap, trigger.newMap);
     }
     when BEFORE_DELETE{
-        cuenta.afterDelete(trigger.old, trigger.oldMap);
+        cuenta.beforeDelete(trigger.old, trigger.oldMap);
     }
     when AFTER_INSERT{
         cuenta.afterInsert(trigger.new, trigger.newMap);

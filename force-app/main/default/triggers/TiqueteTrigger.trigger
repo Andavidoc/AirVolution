@@ -12,19 +12,19 @@ trigger TiqueteTrigger on OpportunityLineItem (before insert, before update, bef
         tiquete.beforeUpdate(trigger.old, trigger.new, trigger.oldMap, trigger.newMap);
     }
     when BEFORE_DELETE{
-        System.debug('Se eliminará una cuenta');
+        tiquete.beforeDelete(trigger.old, trigger.oldMap);
     }
     when AFTER_INSERT{
-        System.debug('Se Insertó una cuenta');
+        tiquete.afterInsert(trigger.new,trigger.newMap);
     }
     when AFTER_UPDATE{
-        System.debug('Se actualizó una cuenta');
+        tiquete.afterUpdate(trigger.old, trigger.new, trigger.oldMap, trigger.newMap);
     }
     when AFTER_DELETE{
-        System.debug('Se eliminó una cuenta');
+        tiquete.afterDelete(trigger.old, trigger.oldMap);
     }
     when AFTER_UNDELETE{
-        System.debug('Se recuperó una cuenta');
+        tiquete.afterUndelete(trigger.new,trigger.newMap);
     }
     when else {
         System.debug('no hizo nada');
