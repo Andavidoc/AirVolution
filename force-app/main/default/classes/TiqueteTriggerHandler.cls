@@ -81,7 +81,7 @@ public without sharing class TiqueteTriggerHandler implements TriggerHandler {
         for (OpportunityLineItem enLis: tiquetes) {
             for (Opportunity tiq : reservas) {
                 if (enLis.OpportunityId == tiq.Id){
-                    enLis.Equipaje_permitido__c = 'Maleta de cabina;Maleta de bodega;Personal';
+                    enLis.Equipaje_permitido__c = 'Personal;Maleta de cabina;Maleta de bodega';
                 }
             }
         }
