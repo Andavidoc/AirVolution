@@ -93,8 +93,8 @@ export default class ReservaCompleta extends LightningElement {
         .catch((error) => {
             console.log(error);
         });
-        
     }
+
     // Funcion utilizada para crear pasajeros adicionales al titular de la reserva
     agregarPasajeros(event){
         clienteReserva({documento: this.documento, tipoDoc: this.tIdent})
@@ -208,7 +208,9 @@ export default class ReservaCompleta extends LightningElement {
 
     cerrarCreacion(){
         this.crearCliente = false;
+        if(this.reserva === null){
         this.crearReserva();
+        }
     }
 
     cerrarReserva(){
