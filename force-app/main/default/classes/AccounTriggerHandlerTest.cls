@@ -25,6 +25,12 @@ public with sharing class AccounTriggerHandlerTest {
         
         cuentaobtenida = [SELECT Id, SLA__C FROM Account LIMIT 1];
         System.assertEquals('Bronze', cuentaobtenida.SLA__C);
+       
+        List<Case> casos = [SELECT Id From case];
+        delete casos;
+
+        delete cuenta;
+        undelete cuenta;
       
     }
 
