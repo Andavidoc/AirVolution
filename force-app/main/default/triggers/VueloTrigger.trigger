@@ -12,19 +12,19 @@ trigger VueloTrigger on Product2 (before insert, before update, before delete, a
         vuelo.beforeUpdate(trigger.old,trigger.new, trigger.oldMap, trigger.newMap);
     }
     when BEFORE_DELETE{
-        System.debug('Se eliminará una cuenta');
+        vuelo.beforeDelete(trigger.old, trigger.oldMap);
     }
     when AFTER_INSERT{
-        System.debug('Se Insertó una cuenta');
+        vuelo.afterInsert(trigger.new,trigger.newMap);
     }
     when AFTER_UPDATE{
-        System.debug('Se actualizó una cuenta');
+        vuelo.afterUpdate(trigger.old, trigger.new, trigger.oldMap, trigger.newMap);
     }
     when AFTER_DELETE{
-        System.debug('Se eliminó una cuenta');
+        vuelo.afterDelete(trigger.old, trigger.oldMap);
     }
     when AFTER_UNDELETE{
-        System.debug('Se recuperó una cuenta');
+        vuelo.afterUndelete(trigger.new, trigger.newMap);
     }
     when else {
         System.debug('no hizo nada');

@@ -43,7 +43,18 @@ public with sharing class VueloTriggerHandlerTest {
         } catch (Exception e) {
             system.assert(e.getMessage().contains('Debe agregar un motivo de cancelación'));
         }
-       
+    }
+
+    @isTest
+    static void nombreVuelo(){
+        Product2 nombre = [SELECT Id, Name FROM Product2 LIMIT 1];
+
+        System.assert(nombre.Name.contains('AE-'));
+
+        update nombre;
+        delete nombre;
+        undelete nombre;
+
     }
     
 }
