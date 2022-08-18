@@ -58,19 +58,20 @@ public static void prioridadDeCuenta(List<Account> cuenta){
 for(Account a: cuenta){
     
     if(a.SLA__c == null){
-    switch on a.CustomerPriority__c {
-    when  'High'{
-    a.SLA__c = 'Gold'; 
-    }
-   when  'Medium'{
-a.SLA__c = 'Silver'; 
-}
-when  'Low'{
-a.SLA__c = 'Bronze'; 
-}
-when else {
-System.debug('');
-}}
+        switch on a.CustomerPriority__c {
+            when  'High'{
+                a.SLA__c = 'Gold'; 
+            }
+            when  'Medium'{
+                a.SLA__c = 'Silver'; 
+            }
+            when  'Low'{
+                a.SLA__c = 'Bronze'; 
+            }
+            when else {
+                System.debug('');
+            }
+        }
 }
 else if((a.CustomerPriority__c == 'High' && a.SLA__c != 'Gold') || (a.CustomerPriority__c == 'Medium' && a.SLA__c != 'Silver') || (a.CustomerPriority__c == 'Low' && a.SLA__c != 'Bronze')){  
     a.CustomerPriority__c.addError('La proridad no conincide con el SLA');
