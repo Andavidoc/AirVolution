@@ -208,10 +208,13 @@ export default class ReservaCompleta extends LightningElement {
 
     cerrarCreacion(){
         this.crearCliente = false;
-        if(this.reserva === null){
         this.crearReserva();
-        }
     }
+
+    cerrarModalCrearCliente(){
+        this.crearCliente = false;
+    }
+
 
     cerrarReserva(){
         this.reservaExistente = false;

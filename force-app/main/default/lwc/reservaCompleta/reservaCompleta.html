@@ -19,7 +19,7 @@
             <div class="slds-modal__container">
                 <!-- Modal/Popup Box LWC header here -->
                 <header class="slds-modal__header">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={cerrarCreacion}>
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={cerrarModalCrearCliente}>
                         <lightning-icon icon-name="utility:close"
                             alternative-text="close"
                             variant="inverse"
@@ -38,8 +38,7 @@
                 
                 <!-- Modal/Popup Box LWC footer starts here -->
                 <footer class="slds-modal__footer">
-                    <button class="slds-button slds-button_neutral" onclick={cerrarCreacion} title="Cancel">Cancel</button>
-                    <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">OK</button>
+                    <button class="slds-button slds-button_neutral" onclick={cerrarModalCrearCliente} title="Cancel">Cancel</button>
                 </footer>
             </div>
         </section>
