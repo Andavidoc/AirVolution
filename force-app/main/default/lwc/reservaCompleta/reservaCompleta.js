@@ -28,7 +28,7 @@ export default class ReservaCompleta extends LightningElement {
     @wire(obtenerVuelos,({precio: '$nombreLista'}))
     vuelos;
 
-    /* Una declaración de variable. */
+    // Se declaran las variables para manjerar la lógica de proyecto
     lista;
     documento;
     contacto = undefined;
@@ -46,6 +46,7 @@ export default class ReservaCompleta extends LightningElement {
     idVuelo;
     pasajero;
     agregarP;
+    nuevosPasajeros;
 
     get identidad() {
         return [
@@ -106,6 +107,8 @@ export default class ReservaCompleta extends LightningElement {
             if(this.contacto === undefined){
                 this.crearReserevaModal = false;
                 this.crearCliente = true;
+                this.pasajero = false;
+                this.nuevosPasajeros = true;
             } else{
                 this.idContact = this.contacto.Id;
                 console.log(this.idContact);
@@ -184,6 +187,8 @@ export default class ReservaCompleta extends LightningElement {
             this.reserva = result.oportunidad;
             if(this.contacto === undefined){
                 this.crearCliente = true;
+                this.pasajero = false;
+                this.nuevosPasajeros = false;
             } else if(this.reserva === undefined){
                 this.nombreContacto = this.contacto.Name;
                 this.idContact = this.contacto.Id;
@@ -209,6 +214,12 @@ export default class ReservaCompleta extends LightningElement {
     cerrarCreacion(){
         this.crearCliente = false;
         this.crearReserva();
+    }
+
+    CerrarModalCreaTiquete(){
+        this.crearCliente = false;
+        this.pasajero = true;
+        this.agregarPasajeros();
     }
 
     cerrarModalCrearCliente(){

@@ -8,6 +8,7 @@ export default class CrearContacto extends LightningElement {
     creacionExitosa(event){
         this.dispatchEvent(new CustomEvent('mensaje'));
         this.dispatchEvent(new CustomEvent('cerrar'));
+        this.dispatchEvent(new CustomEvent('tiquete'));
     }
 
    

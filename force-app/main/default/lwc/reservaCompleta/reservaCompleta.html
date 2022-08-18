@@ -30,11 +30,16 @@
                 </header>
                 <!-- Modal/Popup Box LWC body starts here -->
                 
-               
-                <lightning-card>
-                    <c-crear-contacto oncerrar={cerrarCreacion} onmensaje={showToast} tipo-id={tIdent} num-id={documento}></c-crear-contacto>
-                </lightning-card>
-    
+                <template if:false={nuevosPasajeros}>
+                    <lightning-card>
+                        <c-crear-contacto oncerrar={cerrarCreacion} onmensaje={showToast} tipo-id={tIdent} num-id={documento}></c-crear-contacto>
+                    </lightning-card>
+                </template>
+                <template if:true={nuevosPasajeros}>
+                    <lightning-card>
+                        <c-crear-contacto ontiquete={CerrarModalCreaTiquete} onmensaje={showToast} tipo-id={tIdent} num-id={documento}></c-crear-contacto>
+                    </lightning-card>
+                </template>
                 
                 <!-- Modal/Popup Box LWC footer starts here -->
                 <footer class="slds-modal__footer">

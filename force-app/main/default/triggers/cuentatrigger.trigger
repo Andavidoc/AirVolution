@@ -13,19 +13,19 @@ switch on trigger.operationType{
         cuenta.beforeUpdate(trigger.old, trigger.new, trigger.oldMap, trigger.newMap);
     }
     when BEFORE_DELETE{
-        System.debug('Se eliminará una cuenta');
+        cuenta.afterDelete(trigger.old, trigger.oldMap);
     }
     when AFTER_INSERT{
         cuenta.afterInsert(trigger.new, trigger.newMap);
     }
     when AFTER_UPDATE{
-        System.debug('Se actualizó una cuenta');
+       cuenta.afterUpdate(trigger.old, trigger.new, trigger.oldMap, trigger.newMap);
     }
     when AFTER_DELETE{
-        System.debug('Se eliminó una cuenta');
+        cuenta.afterDelete(trigger.old, trigger.oldMap);
     }
     when AFTER_UNDELETE{
-        System.debug('Se recuperó una cuenta');
+        cuenta.afterUndelete(trigger.new, trigger.newMap);
     }
     when else {
         System.debug('no hizo nada');
