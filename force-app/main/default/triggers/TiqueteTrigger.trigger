@@ -24,7 +24,7 @@ trigger TiqueteTrigger on OpportunityLineItem (before insert, before update, bef
         tiquete.afterDelete(trigger.old, trigger.oldMap);
     }
     when AFTER_UNDELETE{
-        tiquete.afterUndelete(trigger.new,trigger.newMap);
+        tiquete.afterUndelete(trigger.new, trigger.newMap);
     }
     when else {
         System.debug('no hizo nada');

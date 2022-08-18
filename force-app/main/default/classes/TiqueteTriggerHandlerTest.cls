@@ -82,7 +82,6 @@ static void sobreventa(){
 
     } catch (Exception e) {
         system.assert(e.getMessage().contains('No es posible sobrevender los tiquetes'));
-        
     }
 }
 
@@ -98,6 +97,9 @@ static void PasajeroYEquipaje(){
     OpportunityLineItem resultado = [SELECT Id, Equipaje_permitido__c,Pasajero__c FROM OpportunityLineItem LIMIT 1];
     System.assertEquals('Personal;Maleta de cabina;Maleta de bodega', resultado.Equipaje_permitido__c);
     System.assert(resultado.Pasajero__c != null);
+
+    update resultado;
+    delete resultado;
 
 }
 
