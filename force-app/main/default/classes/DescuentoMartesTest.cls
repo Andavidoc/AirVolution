@@ -66,11 +66,10 @@ public with sharing class DescuentoMartesTest {
     @isTest
     static void pruebaDescuentoMartes(){
         
-        
         Test.startTest();
         DescuentoMartes prueba = new DescuentoMartes();
         String sch = '1 0 0 ? * * *';
-        String jobID = System.schedule('DescuentoVeinticuatroSchedulable', sch, prueba);
+        String jobID = System.schedule('Descuento Martes', sch, prueba);
         DescuentoMartesBatch descuento = new DescuentoMartesBatch();
         ID batchprocessid = Database.executeBatch(descuento);
         Test.stopTest();
