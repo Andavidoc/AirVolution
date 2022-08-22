@@ -48,6 +48,9 @@ export default class ReservaCompleta extends LightningElement {
     agregarP;
     nuevosPasajeros;
 
+    /**
+     * Devuelve la matriz con la lista de selección del tipo de identidad
+     */
     get identidad() {
         return [
             { label: 'Tarjeta de Identidad', value: 'Tarjeta de Identidad' },
@@ -56,6 +59,9 @@ export default class ReservaCompleta extends LightningElement {
         ];
     }
 
+    /**
+     * La función devuelve una matriz de objetos, cada objeto tiene una etiqueta y una propiedad de valor.
+     */
     get opciones() {
         return [
             { label: 'Turista', value: 'Standard Price Book' },
@@ -80,6 +86,9 @@ export default class ReservaCompleta extends LightningElement {
         })
     }
 
+    /**
+     * Crea un tiquete con los datos obtenidos anteriromente de reserva y contacto, además del vuelo que se está seleccionando. 
+     */
     handleRowAction(event){
         this.datos = event.detail.row;
         this.idVuelo = event.detail.row.idVuelo;
@@ -126,9 +135,11 @@ export default class ReservaCompleta extends LightningElement {
 
     
 
+    /**
+     * Crea un tiquete con las propiedades actuales 
+     */
     nuevoTiquete(){
         console.log(this.idContact);
-        /* Creando un boleto. */
         crearTiquete({reserva : this.idReserva, vuelo : this.idVuelo, pasajero : this.idContact})
         .then((result) => {
             console.log(result);
@@ -140,6 +151,9 @@ export default class ReservaCompleta extends LightningElement {
     }
     
 
+    /** 
+     * Lanza un mensaje para indicar que el contacto fue creado con éxito.
+     */
     showToast(event){
         const evento = new ShowToastEvent({
             title: 'Contacto creado' ,
@@ -149,6 +163,9 @@ export default class ReservaCompleta extends LightningElement {
         this.dispatchEvent(evento);
     }
 
+    /**
+     * Lanza un mensaje para indicar que la reserva fue creada con éxito.
+     */
     showToastReserva(event){
         const evento = new ShowToastEvent({
             title: 'Reserva Exitosa' ,
@@ -158,6 +175,9 @@ export default class ReservaCompleta extends LightningElement {
         this.dispatchEvent(evento);
     }
 
+    /**
+     * Lanza un mensaje para indicar que el tiquete fue creado con éxito.
+     */
     showToastTiquete(event){
         const evento = new ShowToastEvent({
             title: 'Tiquete Exitosa' ,
@@ -168,16 +188,28 @@ export default class ReservaCompleta extends LightningElement {
     }
 
     
+    /**
+     * La función docChange() se llama cuando el usuario cambia el valor del campo de entrada. El valor
+     * del campo de entrada se almacena en la variable documento.
+     */
     docChange(event){
         this.documento = event.detail.value;
         console.log(this.documento);
     }
 
+    /**
+     * La función idChange() se llama cuando el usuario cambia el valor del campo de entrada. El valor
+     * del campo de entrada se almacena en la variable tIdent.
+     */
     idChange(event) {
         this.tIdent = event.target.value;
         console.log(this.tIdent);
     }
     
+    /**
+     * Comprueba si el contacto existe, si no existe; crea un nuevo contacto, si existe; comprueba si
+     * existe la oportunidad, si no existe; crea una nueva oportunidad, si existe; muestra un error indicando qu ela reserva existe.
+     */
     crearReserva(){
         clienteReserva({documento: this.documento, tipoDoc: this.tIdent})
         .then((result) => {
@@ -211,6 +243,7 @@ export default class ReservaCompleta extends LightningElement {
         this.idReserva = event.detail
     }
 
+    // Todos: se crean todos los eventos para cerrar los diferentes modales 
     cerrarCreacion(){
         this.crearCliente = false;
         this.crearReserva();
