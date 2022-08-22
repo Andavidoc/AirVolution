@@ -1,5 +1,5 @@
-@istest
-public with sharing class VueloBatchShedulTest {
+@isTest
+public with sharing class ReservaSheduBatchTest {
     
     @TestSetup
     static void makeData(){
@@ -66,24 +66,26 @@ public with sharing class VueloBatchShedulTest {
         insert tiquete;
     }
 
+
     @isTest
-    static void descuento50Porciento(){
+    static void reservaNoPagada(){
         Test.startTest();
-        VueloBatchShedul prueba = new VueloBatchShedul();
-        String sch = '1 0 0 ? * * *';
-        String jobID = System.schedule('DescuentoVeinticuatroSchedulable', sch, prueba);
+        ReservaScheduled prueba = new ReservaScheduled();
+        String CRON_EXP = '0 0 0 15 3 ? *';
+        String jobID = System.schedule('DescuentoVeinticuatroSchedulable', CRON_EXP, prueba);
         CronTrigger ct = [SELECT Id, CronExpression, TimesTriggered, NextFireTime FROM CronTrigger WHERE id = :jobId];
-        VueloBatch descuento = new VueloBatch();
-        ID batchprocessid = Database.executeBatch(descuento);
-        System.assertEquals(sch, ct.CronExpression);
+        System.assertEquals(CRON_EXP, ct.CronExpression);
 		System.assertEquals(0, ct.TimesTriggered);
+        //ReservaBatch descuento = new ReservaBatch();
+        //ID batchprocessid = Database.executeBatch(descuento);
         Test.stopTest();
         
-        List<PricebookEntry> entradaConDescuento = [SELECT Id 
-                                FROM PricebookEntry 
-                                WHERE Descuento_50__c = true];
-        System.assertEquals(2, entradaConDescuento.size());
-        //System.assertEquals(1, Limits.getEmailInvocations());
+        List<OpportunityLineItem> sinTiquetes = [SELECT Id FROM OpportunityLineItem ];
+        List<Opportunity> noPagadas = [SELECT ID FROM Opportunity WHERE StageName = 'no pagado'];
+        //! Buscar cambio de ultima modificación
+        //System.assertEquals(0, sinTiquetes.size(), 'sin tiquetes');
+        //System.assertEquals(1, noPagadas.size(), 'no pagadas');
     }
 
 }
+ 

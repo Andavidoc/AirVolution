@@ -1,17 +1,16 @@
 @isTest
 public with sharing class CuentaFuturaTest {
+    
     @isTest
-    public static void metodoFuturo(){
-        Account cuenta = new Account(Name = 'Test',SLASerialNumber__c = '0' );
-        insert cuenta;
+    public static void cuentafuruta(){
+        
         Test.startTest();
-        CuentaFutura.agregarNumero(cuenta.Id);
+        Cuenta.usaFuturo('Test');
         Test.stopTest();
 
-        List<Account> diferente = [SELECT Id FROM Account WHERE SLASerialNumber__c != '0'];
+        List<Account> diferente = [SELECT Id FROM Account WHERE SLASerialNumber__c != null];
 
         system.assertEquals(1, diferente.size());
-        
     }
 
 }

@@ -3,7 +3,7 @@ public with sharing class ReservaTriggerHandlerTest {
     
     @TestSetup
     static void makeData(){
-        Contact contacto = new contact(FirstName = 'Rodrigo', LastName='Castaño');
+        Contact contacto = new contact(FirstName = 'Rodrigo', LastName='Castaño', Email = 'andresarca65@gmail.com');
         insert contacto;
     }
 
@@ -57,7 +57,7 @@ public with sharing class ReservaTriggerHandlerTest {
         insert reserva;
 
         reserva = [SELECT Name FROM Opportunity LIMIT 1] ;
-        reserva.StageName = 'Completado';
+        reserva.StageName = 'Pagado';
 
         try {
             update reserva;

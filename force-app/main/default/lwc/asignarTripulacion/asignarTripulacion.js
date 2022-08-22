@@ -1,3 +1,4 @@
+/* Importación de la clase de Apex y el componente web Lightning. */
 import { LightningElement, wire } from 'lwc';
 import obternerVuelos from '@salesforce/apex/TripulacionRequerida.obternerVuelos';
 
@@ -6,6 +7,7 @@ const actions = [
     { label: 'asignar', name: 'asignar'}
 ];
 
+/* Definición de las columnas de la tabla. */
 const columns = [
     { label: 'Código', fieldName: 'codVuelo' },
     { label: 'Auxiliares Requeridos', fieldName: 'numAuxiliares', type: 'number' },
@@ -19,6 +21,7 @@ const columns = [
 ];
 export default class AsignarTripulacion extends LightningElement {
     
+    /* Declarar las variables que se utilizarán en el componente. */
     columns = columns;
     isModalOpen;
     idVuelo;
@@ -29,14 +32,21 @@ export default class AsignarTripulacion extends LightningElement {
     copiloto;
     selected = [];
 
+    /**
+     * Devuelve el valor de la variable idVuelo.
+     */
     get vueloId(){
         return this.idVuelo;
     }
 
+    /* Un decorador que le permite acceder a datos desde un método de Apex. */
     @wire(obternerVuelos)
     vuelos;
  
 
+    /**
+     * Abre una ventana modal con la información de la fila seleccionada
+     */
     handleRowAction(event){
         this.isModalOpen = true;
         console.log(event.detail.row);
@@ -49,6 +59,9 @@ export default class AsignarTripulacion extends LightningElement {
         this.idVuelo = this.datos.idVuelo;
     }
 
+    /**
+     * La función se llama cuando el usuario hace clic en el botón Cerrar en el modal.
+     */
     closeModal(){
         this.isModalOpen = false;
     }

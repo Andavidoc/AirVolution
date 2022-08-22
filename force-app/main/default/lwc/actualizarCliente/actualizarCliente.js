@@ -1,6 +1,6 @@
-import { api, LightningElement, wire } from 'lwc';
-import {updateRecord,createRecord,getFieldValue, getRecord} from 'lightning/uiRecordApi';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+/* Importando los módulos necesarios para crear un nuevo registro de contacto. */
+import { LightningElement} from 'lwc';
+import {createRecord } from 'lightning/uiRecordApi';
 import CONTACT_OBJECT from '@salesforce/schema/Contact';
 import FIRSTNAME from '@salesforce/schema/Contact.FirstName';
 import LASTNAME from '@salesforce/schema/Contact.LastName';
@@ -13,6 +13,7 @@ import NACIONALIDAD from '@salesforce/schema/Contact.Nacionalidad__c';
 
 
 export default class ActualizarCliente extends LightningElement {
+    /* Declarar las variables que se utilizarán en el componente. */
     objectApiName = CONTACT_OBJECT;
     contactId;
     firstName = '';
@@ -24,6 +25,9 @@ export default class ActualizarCliente extends LightningElement {
     correoElectronico = '';
     nacionalidad = '';
 
+    /**
+     * Toma el valor del campo de entrada y lo asigna a la variable correspondiente
+     */
     handleContactChange(event){
         switch(event.target.name){
             case 'firstName':
@@ -54,6 +58,9 @@ export default class ActualizarCliente extends LightningElement {
         }
     }
 
+    /**
+     * La función crea un nuevo registro de contacto con los valores de los campos que se pasan en la función
+     */
     createContact(){
         const fields = {}
         fields[FIRSTNAME.fieldApiName] = this.firstName;

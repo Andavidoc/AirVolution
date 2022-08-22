@@ -1,3 +1,4 @@
+/* Importación de los módulos necesarios para crear un nuevo registro de oportunidad. */
 import { api, LightningElement, wire } from 'lwc';
 import {createRecord,  getRecord, getFieldValue} from 'lightning/uiRecordApi';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
@@ -21,10 +22,17 @@ export default class CrearReserva extends LightningElement {
     fecha = new Date().toISOString().slice(0, 10);
     @api listaPrecio;
 
+    /**
+     * La función devuelve el valor del campo denominado "Nombre" en el registro actual
+     */
     get contactName(){
         return this.record.data ? getFieldValue(this.record.data, NAME_FIELD) : '';
     }
 
+    /**
+     * La función crea un nuevo registro de oportunidad con los campos que se pasan en el objeto
+     * recordInput
+     */
     createOpportunity(){
         const fields = {}
         fields[NOMBREDERESERVA_FIELD.fieldApiName] = this.contactName + this.numeroAleatorio;
