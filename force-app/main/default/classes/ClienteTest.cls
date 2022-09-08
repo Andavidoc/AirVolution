@@ -1,6 +1,6 @@
 @isTest
 public class ClienteTest {
-
+    //Se insertan contactos, vuelos, reservas , aeropuertos, entradas de precio y aviones para un test más preciso 
     @TestSetup
     static void makeData(){
         List<Contact> contactos = new List<Contact>();
@@ -66,20 +66,24 @@ public class ClienteTest {
         insert reserva;
     }
     
+    
+    //Verifica que al ingresar un contacto sin reserva, el retorno de contacto sea diferente de nulo, y la reserva sea nula
     @isTest
     static void contactoSinReserva(){
         Cliente.CtoReserva test = Cliente.clienteReserva('10' , 'Tarjeta de Identidad');
         System.assert(test.contacto != null);
         System.assert(test.oportunidad == null);
     }
-
+    
+    //Verifica que al ingresar un contacto con reserva, el retorno de ambos objetos, sea diferente de nulo
     @isTest
     static void contactoConReserva(){
         Cliente.CtoReserva test = Cliente.clienteReserva('11' , 'Tarjeta de Identidad');
         System.assert(test.contacto != null);
         System.assert(test.oportunidad != null);
     }
-
+    
+    //Verifica que al ingresar un contacto inexistente, el retorno de ambos objetos, sea nulo
     @isTest
     static void busquedaFallida(){
         Cliente.CtoReserva test = Cliente.clienteReserva('1' , 'Tarjeta de Identidad');
@@ -87,6 +91,7 @@ public class ClienteTest {
         System.assert(test.oportunidad == null);
     }
 
+    //Verifica que de los dos vuelos existentes, solo traiga el que tiene en su lista de precios, tiquetes clase turista
     @isTest
     static void obtieneVuelos(){
         Pricebook2 listaPrecio = [SELECT id From Pricebook2 WHERE NAme = 'Tiquetes clase turista' LIMIT 1];
@@ -98,6 +103,7 @@ public class ClienteTest {
 
     }
 
+    //verifica que Id obtenido por el metodo, sea igual al que se obtiene por una busqueda SOQL
     @isTest
      static void nombrePricebook(){
         Pricebook2 listaPrecio = [SELECT id,Name From Pricebook2 WHERE NAme = 'Tiquetes clase turista' LIMIT 1];
@@ -107,6 +113,7 @@ public class ClienteTest {
         System.assertEquals(idAComparar, id);
     }
 
+    // Verifica que la creación de tiquetes mediante el metodo, funcione correctamente
     @isTest
     static void crearTiquete(){
         Contact contacto = [SELECT Id From Contact WHERE N_mero_de_Identificaci_n__c = '11' LIMIT 1];

@@ -1,6 +1,7 @@
 @isTest
 public with sharing class AnimalTest {
     
+    //se crea un animal y ejecutan sus 3 métodos, adicional se prueba en los 3 tipos diferentes
     @isTest
     static void metodosAnimal(){
         Animal perro = new Animal('negro', 4, true, Animal.Especie.PERRO);

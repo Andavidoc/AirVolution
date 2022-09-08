@@ -1,5 +1,6 @@
 public with sharing class Cliente {
 
+    // Busca un contacto y una reserva con los parametros enviados desde JavaScrip y retorna la existencia o nulidad de estos.
     @AuraEnabled
     public static CtoReserva clienteReserva(string documento, string tipoDoc){
          contact cliente = null;
@@ -24,7 +25,7 @@ public with sharing class Cliente {
         return resultado;
     }
 
-    
+    // Se crea un Wrapper para el retorno del metodo clienteReserva
     public class CtoReserva{
         @auraEnabled
         public Contact contacto;
@@ -37,6 +38,7 @@ public with sharing class Cliente {
         }
     }
 
+    //Obtiene la lista de vuelos con la lista de precios de la reserva seleccionada y que están programados para una fecha posterior a hoy
     @AuraEnabled(cacheable = true)
     public static list<vueloWrapper> obtenerVuelos(string precio){
         List<Product2> vuelos = [SELECT Id, Name, Aeropuerto_de_Partida__r.Name,
@@ -56,6 +58,7 @@ public with sharing class Cliente {
         return listaVuelos;
     }
 
+    // Se crea un Wrapper para el retorno del metodo obtenerVuelos
     public class vueloWrapper {
         @auraEnabled
         public string idVuelo;
@@ -86,6 +89,7 @@ public with sharing class Cliente {
     }
 
 
+    //Recibe el nombre de una entrada de precios, y devuelve el Id para posteriormente buscar vuelos con esta entrada de precios
     @AuraEnabled(cacheable = true)
     public static string listaPrecios(string entradaDeLista){
         Pricebook2 precios = [SELECT Id FROM Pricebook2 WHERE  Name =: entradaDeLista LIMIT 1];
@@ -93,13 +97,16 @@ public with sharing class Cliente {
         return nombreLista;
     }
     
+    //Crea un tiquete con los parametros que recibe desde el componente reservaCompleta
+    // ! Cambio void por tiquete
     @AuraEnabled
-    public static void crearTiquete(string reserva, string vuelo, string pasajero){
+    public static OpportunityLineItem crearTiquete(string reserva, string vuelo, string pasajero){
         try {
             OpportunityLineItem tiquete = new OpportunityLineItem(OpportunityId = reserva, Product2Id = vuelo, Pasajero__c = pasajero);
             insert tiquete;
             Opportunity completa = new Opportunity(Id = reserva, StageName = 'Completado');
             update completa;
+            return tiquete;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

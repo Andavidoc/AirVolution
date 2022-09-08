@@ -1,6 +1,6 @@
 public with sharing class ClaseQuequeable implements Queueable{
     
-    
+    //Actualiza el Serial de las cuentas que aun no tiene, de forma aleatoria.
     public void execute(QueueableContext context){
         List<Account> accts = [SELECT ID FROM Account WHERE SLASerialNumber__c = null];
 

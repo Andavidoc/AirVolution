@@ -1,5 +1,7 @@
 @isTest
 public with sharing class ClaseQuequeableTest {
+
+    //Inserta 50 cuentas  
     @TestSetup
     static void makeData(){
         List<Account> accts = new List<Account>();
@@ -10,6 +12,7 @@ public with sharing class ClaseQuequeableTest {
         insert accts;
     }
 
+    //Verifica que se hayan creado 50 cuentas con un Serial diferente de null
     @IsTest
     static void methodName(){        
 

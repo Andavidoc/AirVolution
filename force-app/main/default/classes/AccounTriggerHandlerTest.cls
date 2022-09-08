@@ -34,6 +34,7 @@ public with sharing class AccounTriggerHandlerTest {
       
     }
 
+    //Verifica que para 200 cuentas, la clase pueda crear 200 casos
     @isTest
     private static void casosMasivos(){
     List<Account> cuentas = new List<Account>();
@@ -49,6 +50,7 @@ public with sharing class AccounTriggerHandlerTest {
     System.assertEquals(200, casos.size());
     }
 
+    //Verifica que los campos de prioridad y SLA Correspondan correctamente
     @isTest
     static void cuentaError(){
             Account cuenta = new Account(Name = 'Cuenta de Test', CustomerPriority__c = 'High', SLA__C = 'Silver');
