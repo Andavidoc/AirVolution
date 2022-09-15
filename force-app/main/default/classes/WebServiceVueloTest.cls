@@ -147,4 +147,17 @@ public with sharing class WebServiceVueloTest {
         System.assert(respuesta.oportunidad != null);
      }
 
+     @isTest
+     static void reservaPaga(){
+        Product2 vuelo = [SELECT Id FROM Product2 LIMIT 1];
+
+        WebServiceVuelo.ReservaHttp respuesta = WebServiceVuelo.crearReserva('Sebas', 'Morales', 'Cédula de ciudadanía', '2030', 'sebastiancho@gmail.com', Cliente.listaPrecios('Tiquetes clase turista'), vuelo.Id);
+        WebServiceVuelo.pagarReserva(respuesta.oportunidad.Id, 100000, 'Visa');
+
+        List<Opportunity> oportunidad = [SELECT Id, StageName FROM Opportunity];
+        System.assertEquals('Pagado', oportunidad[0].StageName);
+
+     }
+     
+
 }

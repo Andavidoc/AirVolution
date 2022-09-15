@@ -1,10 +1,10 @@
 @isTest
-public with sharing class TiqueteTriggerHandlerTest {
-    
-@TestSetup
-static void makeData(){
-    List<Contact> lista = new List<Contact>();
-    for(Integer i = 0; i < 20; i++){
+public with sharing class ControladorTiqueteTest {
+
+    @TestSetup
+    static void makeData(){
+        List<Contact> lista = new List<Contact>();
+    for(Integer i = 0; i < 2; i++){
         Contact cto = new Contact(FirstName = 'Andrés '+i, LastName = 'David', 
                                 Tipo_de_Identificaci_n__c = 'Cedula de Extranjería',
                                 N_mero_de_Identificaci_n__c = String.valueof(i));
@@ -61,48 +61,26 @@ static void makeData(){
                                     CloseDate = System.today(), StageName = 'Pre-venta', 
                                     Pricebook2Id = negocios.Id);
     Insert res;
+    List<OpportunityLineItem> tiquetes = new List<OpportunityLineItem>();
     
-}
-
-@isTest
-static void sobreventa(){
-    try {
-        List<Contact> pasajeros = [SELECT Id FROM Contact];
-        Opportunity reserva = [SELECT Id FROM Opportunity LIMIT 1];
-        Product2 vuelo = [SELECT Id FROM Product2 LIMIT 1];
-
-        List<OpportunityLineItem> tiquetes = new List<OpportunityLineItem>();
-        for (Integer i = 0; i < 5;  i++) {
-            tiquetes.add(new OpportunityLineItem(OpportunityId = reserva.Id, Product2Id = vuelo.Id, Pasajero__c = pasajeros[i].Id));
-        }
-        insert tiquetes;
-        
-        OpportunityLineItem sobreventa = new OpportunityLineItem(OpportunityId = reserva.Id, Product2Id = vuelo.Id, Pasajero__c = pasajeros[5].Id);
-        insert sobreventa;
-
-    } catch (Exception e) {
-        system.assert(e.getMessage().contains('No es posible sobrevender los tiquetes'));
+    for(Integer i = 0; i < 2; i++){
+        OpportunityLineItem tiquete = new OpportunityLineItem(OpportunityId = res.Id, Product2Id = idV, Pasajero__c = lista[i].Id);
+        tiquetes.add(tiquete);
     }
-}
+    insert tiquetes;
+    }
 
-@isTest
-static void PasajeroYEquipaje(){
-    Contact pasajero = [SELECT Id FROM Contact LIMIT 1];
-    Opportunity reserva = [SELECT Id FROM Opportunity LIMIT 1];
-    Product2 vuelo = [SELECT Id FROM Product2 LIMIT 1];
+    @isTest
+    public static void prueba() {
+        Opportunity reserva = [SELECT id FROM Opportunity LIMIT 1];
+        PageReference pageRef = Page.ReservaPDF;
+        pageRef.getparameters().put('recordId', reserva.id);  
+        Test.setCurrentPage(pageRef);
+        Apexpages.StandardController sc = new Apexpages.StandardController(reserva);
+        ControladorTiquete ext = new  ControladorTiquete(sc);
+        List<Object> tiq = ext.tiquetes;
+        
+        System.assertEquals(2, tiq.size());
 
-    OpportunityLineItem equipaje = new OpportunityLineItem(OpportunityId = reserva.Id, Product2Id = vuelo.Id);
-    insert equipaje;
-
-    OpportunityLineItem resultado = [SELECT Id, Equipaje_permitido__c,Pasajero__c FROM OpportunityLineItem LIMIT 1];
-    System.assertEquals('Personal;Maleta de cabina;Maleta de bodega', resultado.Equipaje_permitido__c);
-    System.assert(resultado.Pasajero__c != null);
-
-    update resultado;
-    delete resultado;
-
-}
-
-
-
+    }
 }

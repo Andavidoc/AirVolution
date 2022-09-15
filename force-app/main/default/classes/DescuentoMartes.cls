@@ -6,5 +6,3 @@ public with sharing class DescuentoMartes implements Schedulable{
         ID batchprocessid = Database.executeBatch(descuento);
     } 
 }
-
-

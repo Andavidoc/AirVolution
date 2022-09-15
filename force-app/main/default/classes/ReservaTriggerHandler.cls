@@ -68,14 +68,14 @@ public without sharing class ReservaTriggerHandler implements TriggerHandler {
                 idContactos.add(r.Titular_de_reserva__c);
             }
         }
-        if(idContactos.size() > 0 ){
-        EmailTemplate plantillaCorreo = [SELECT Id FROM EmailTemplate WHERE Name = 'Confirmación de reserva' LIMIT 1];
+        // if(idContactos.size() > 0 ){
+        // EmailTemplate plantillaCorreo = [SELECT Id FROM EmailTemplate WHERE Name = 'Confirmación de reserva' LIMIT 1];
 
-        Messaging.MassEmailMessage correo = new Messaging.MassEmailMessage();
-        correo.setTargetObjectIds(idContactos);
-        correo.setSenderDisplayName('Air-Volution Support');
-        correo.setTemplateId(plantillaCorreo.Id);  
-        Messaging.sendEmail(new Messaging.MassEmailMessage[] {correo});
-        }
+        // Messaging.MassEmailMessage correo = new Messaging.MassEmailMessage();
+        // correo.setTargetObjectIds(idContactos);
+        // correo.setSenderDisplayName('Air-Volution Support');
+        // correo.setTemplateId(plantillaCorreo.Id);  
+        // Messaging.sendEmail(new Messaging.MassEmailMessage[] {correo});
+        // }
     }
 }

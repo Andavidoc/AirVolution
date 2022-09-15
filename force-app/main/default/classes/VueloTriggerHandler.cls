@@ -19,7 +19,6 @@ public with sharing class VueloTriggerHandler implements TriggerHandler{
 
     }
     public void afterUpdate(List<Product2> oldRecords, List<Product2> newRecords, Map<ID, SObject> oldRecordMap, Map<ID, SObject> newRecordMap){
-
     }
     public void afterDelete(List<Product2> oldRecords, Map<ID, SObject> oldRecordMap){
 
@@ -47,4 +46,6 @@ public with sharing class VueloTriggerHandler implements TriggerHandler{
             vuelo.Name = 'AE-'+ Integer.valueOf(Math.random()*10000);
         }
     }
+
+    
 }

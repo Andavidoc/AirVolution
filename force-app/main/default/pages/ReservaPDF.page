@@ -1,0 +1,36 @@
+<apex:page standardController="Opportunity" extensions="ControladorTiquete"  renderAs="PDF">
+    <p>
+        {! Opportunity.Name}
+    </p>
+    <CENTER>
+        <apex:image value="{!URLFOR($Resource.evolution)}"  /> <br/>
+    </CENTER>
+    
+    <h3>
+        Titular de la reserva: {! Opportunity.Titular_de_reserva__r.Name} <br/>
+        Contacto: {! Opportunity.Titular_de_reserva__r.Email}
+    </h3>
+    
+    
+    
+    <apex:pageBlock title="Tiquetes">
+        
+        <!--  List -->
+        
+        <apex:pageBlockTable value="{! tiquetes }" var="ct" cellpadding="4px" border="1px">
+            <apex:column value="{! ct.Pasajero__r.name }"/> <br/>
+            <apex:column value="{! ct.UnitPrice}" /> <br/>
+            <apex:column value="{! Opportunity.Pricebook2Id }" />
+            <apex:column value="{! ct.Equipaje_permitido__c}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    
+    <CENTER>
+        <h3>
+            Terminos y condiciones
+        </h3>
+        <apex:pageBlock >
+            <p>La oferta de cambio de vuelo es una iniciativa de aerovías del Continente Americano S.A. Avianca, Avianca Costa Rica S.A. , Avianca Ecuador S.A., Taca International Airlines S.A., en adelante y en conjunto denominadas “Avianca” que pretende ofrecer a ciertos Clientes seleccionados discrecionalmente por Avianca en ciertos vuelos en los que se prevé un alto nivel de ocupación y siempre que dichos Clientes tengan flexibilidad para cambiar su Reserva Original, la oportunidad de hacerlo a cambio de ciertos beneficios en los términos explicados en estos Términos y Condiciones (“Programa de Beneficios").</p>
+        </apex:pageBlock>
+    </CENTER>
+</apex:page>
