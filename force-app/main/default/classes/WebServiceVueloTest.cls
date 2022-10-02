@@ -119,45 +119,5 @@ public with sharing class WebServiceVueloTest {
          
      }
 
-     @isTest
-     static void reservaClienteViejo(){
-        Product2 vuelo = [SELECT Id FROM Product2 LIMIT 1];
-
-        WebServiceVuelo.ReservaHttp respuesta = WebServiceVuelo.crearReserva('Andrés', 'David', 'Cédula de ciudadanía', '1017', 'andresarca65@gmail.com', Cliente.listaPrecios('Tiquetes clase turista'), vuelo.Id);
-        System.assertEquals('Reserva creada exitosamente', respuesta.mensaje);
-        System.assert(respuesta.oportunidad != null);
-     }
-
-     @isTest
-     static void reservaClienteNuevo(){
-        Product2 vuelo = [SELECT Id FROM Product2 LIMIT 1];
-
-        WebServiceVuelo.ReservaHttp respuesta = WebServiceVuelo.crearReserva('Sebas', 'Morales', 'Cédula de ciudadanía', '2030', 'sebastiancho@gmail.com', Cliente.listaPrecios('Tiquetes clase turista'), vuelo.Id);
-        System.assertEquals('Reserva creada exitosamente', respuesta.mensaje);
-        System.assert(respuesta.oportunidad != null);
-     }
-
-     @isTest
-     static void reservaExistente(){
-        Product2 vuelo = [SELECT Id FROM Product2 LIMIT 1];
-
-        WebServiceVuelo.ReservaHttp respuesta = WebServiceVuelo.crearReserva('Sebas', 'Morales', 'Cédula de ciudadanía', '2030', 'sebastiancho@gmail.com', Cliente.listaPrecios('Tiquetes clase turista'), vuelo.Id);
-        respuesta = WebServiceVuelo.crearReserva('Sebas', 'Morales', 'Cédula de ciudadanía', '2030', 'sebastiancho@gmail.com', Cliente.listaPrecios('Tiquetes clase turista'), vuelo.Id);
-        System.assertEquals('El pasajero ya cuenta con la siguiente reserva', respuesta.mensaje);
-        System.assert(respuesta.oportunidad != null);
-     }
-
-     @isTest
-     static void reservaPaga(){
-        Product2 vuelo = [SELECT Id FROM Product2 LIMIT 1];
-
-        WebServiceVuelo.ReservaHttp respuesta = WebServiceVuelo.crearReserva('Sebas', 'Morales', 'Cédula de ciudadanía', '2030', 'sebastiancho@gmail.com', Cliente.listaPrecios('Tiquetes clase turista'), vuelo.Id);
-        WebServiceVuelo.pagarReserva(respuesta.oportunidad.Id, 100000, 'Visa');
-
-        List<Opportunity> oportunidad = [SELECT Id, StageName FROM Opportunity];
-        System.assertEquals('Pagado', oportunidad[0].StageName);
-
-     }
-     
 
 }

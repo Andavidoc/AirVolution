@@ -9,11 +9,14 @@
 
         avi_n__c avion = new avi_n__c();
         insert avion;
-
-        Product2 vuelo = new Product2(Name = 'vuelo Prueba',Aeropuerto_de_partida__c = aeropuertos[0].Id,
-                                     Aeropuerto_de_llegada__c= aeropuertos[1].Id, Fecha_y_hora_de_partida__c = tiempo.addMinutes(30),
-                                     Fecha_y_hora_estimada_de_llegada__c = tiempo.addHours(2), avi_n__c = avion.Id, IsActive = true);
-        insert vuelo;
+        List<Product2> vuelos = new List<Product2>();
+        for(integer i = 0; i <= 10; i++){
+            vuelos.add(new Product2(Name = 'vuelo Prueba',Aeropuerto_de_partida__c = aeropuertos[0].Id,
+                                    Aeropuerto_de_llegada__c= aeropuertos[1].Id, Fecha_y_hora_de_partida__c = tiempo.addMinutes(30),
+                                    Fecha_y_hora_estimada_de_llegada__c = tiempo.addHours(2), avi_n__c = avion.Id, IsActive = true));
+        
+        }
+        insert vuelos;
     }
 
 
@@ -29,12 +32,12 @@
         Test.setMock(HttpCalloutMock.class, mock);
         // Call method to test
         
-        Clima.climasPArtida();
+        Clima.crearClimas('Partida');
         test.stopTest();
 
         List<Clima__c> clima = [SELECT Id FROM clima__c WHERE Temperatura__c = 30];
 
-        System.assertEquals(1, clima.size());
+        System.assertEquals(11, clima.size());
     }
 
     @isTest
@@ -49,11 +52,11 @@
         Test.setMock(HttpCalloutMock.class, mock);
         // Call method to test
         
-        Clima.climasLlegada();
+        Clima.crearClimas('Llegada');
         test.stopTest();
 
         List<Clima__c> clima = [SELECT Id FROM clima__c WHERE Temperatura__c = 30];
 
-        System.assertEquals(1, clima.size());
+        System.assertEquals(11, clima.size());
     }
 }

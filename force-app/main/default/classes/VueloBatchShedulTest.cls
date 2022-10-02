@@ -69,6 +69,14 @@ public with sharing class VueloBatchShedulTest {
     @isTest
     static void descuento50Porciento(){
         Test.startTest();
+        StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
+        mock.setStaticResource('ClimaMock');
+        mock.setStatusCode(200);
+        mock.setHeader('Content-Type', 'application/json;charset=UTF-8');
+
+        // Associate the callout with a mock response
+        Test.setMock(HttpCalloutMock.class, mock);
+        // Call method to test
         VueloBatchShedul prueba = new VueloBatchShedul();
         String sch = '1 0 0 ? * * *';
         String jobID = System.schedule('DescuentoVeinticuatroSchedulable', sch, prueba);

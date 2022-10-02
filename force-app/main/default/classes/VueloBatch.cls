@@ -1,6 +1,7 @@
 public with sharing class VueloBatch implements Database.Batchable<sObject> {
     Datetime ahora = Datetime.now();
     Datetime ventiCuatro = Datetime.now().addHours(24);
+    
     public Database.QueryLocator start(Database.BatchableContext BC){
         return Database.getQueryLocator('SELECT Id, Fecha_y_hora_de_partida__c FROM Product2');
     }
